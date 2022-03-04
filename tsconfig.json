@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "sourceMap": false,
+    "outDir": "./dist/",
+    "strictNullChecks": true,
+    "strict": true,
+    "declaration": true,
+    "module": "CommonJS",
+    "target": "ES2018",
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "lib": ["es2018"]
+  },
+  "include": ["index.ts", "cli.ts"],
+  "exclude": ["node_modules"]
+}
