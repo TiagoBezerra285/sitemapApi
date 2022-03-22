@@ -145,6 +145,18 @@ export class SitemapItemStream extends Transform {
     if (item.versionDescription) {
       this.push(element(TagNames.versionDescription, item.versionDescription));
     }
+    if (item.image_link) {
+      this.push(element(TagNames.image_link, item.image_link));
+    }
+    if (item.availability) {
+      this.push(element(TagNames.availability, item.availability));
+    }
+    if (item.id) {
+      this.push(element(TagNames.id, item.id));
+    }
+    if (item.brand) {
+      this.push(element(TagNames.brand, item.brand));
+    }
 
     item.video.forEach((video) => {
       this.push(otag(TagNames['video:video']));
@@ -377,6 +389,30 @@ export class SitemapItemStream extends Transform {
       }
 
       this.push(ctag(TagNames['image:image']));
+    });
+
+    // Address handling
+    item.address.forEach((address): void => {
+      this.push(otag(TagNames['address:address']));
+      this.push(element(TagNames['address:loc'], address.address));
+
+      if (address.city) {
+        this.push(element(TagNames['address:city'], address.city));
+      }
+
+      if (address.region) {
+        this.push(element(TagNames['address:region'], address.region));
+      }
+
+      if (address.postal_code) {
+        this.push(element(TagNames['address:postal_code'], address.postal_code));
+      }
+
+      if (address.country) {
+        this.push(element(TagNames['address:country'], address.country));
+      }
+
+      this.push(ctag(TagNames['address:address']));
     });
 
     this.push(ctag(TagNames.url));

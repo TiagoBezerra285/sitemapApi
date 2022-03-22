@@ -390,6 +390,7 @@ export function normalizeURL(
   // SitemapItem
   // create object with url property
   let smi: SitemapItem = {
+    address: [],
     img: [],
     video: [],
     links: [],
@@ -404,6 +405,30 @@ export function normalizeURL(
   }
 
   smi.url = new URL(smiLoose.url, hostname).toString();
+
+  /*let address: Address[] = [];
+  if (smiLoose.address) {
+    if (typeof smiLoose.address === 'string') {
+      // string -> array of objects
+      smiLoose.address = [{ url: smiLoose.address }];
+    } else if (!Array.isArray(smiLoose.address)) {
+      // object -> array of objects
+      smiLoose.address = [smiLoose.address];
+    }
+
+    address = smiLoose.address.map(
+      (el): Address => (typeof el === 'string' ? { url: el } : el)
+    );
+  }
+  // prepend hostname to all image urls
+  smi.address = address.map(
+    (el: Address): Address => ({
+      ...el,
+      url: new URL(el.url, hostname).toString(),
+    })
+  );
+*/
+
 
   let img: Img[] = [];
   if (smiLoose.img) {

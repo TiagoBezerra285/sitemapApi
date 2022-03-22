@@ -22,6 +22,7 @@ export interface NSArgs {
   video: boolean;
   xhtml: boolean;
   image: boolean;
+  address: boolean;
   custom?: string[];
 }
 const getURLSetNs: (opts: NSArgs, xslURL?: string) => string = (
@@ -36,7 +37,7 @@ const getURLSetNs: (opts: NSArgs, xslURL?: string) => string = (
   ns += urlsetTagStart;
 
   if (news) {
-    ns += ' xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"';
+    ns += ' xmlns:news="http://www.google.com/schemas/news/0.9"';
   }
 
   if (xhtml) {
@@ -44,11 +45,11 @@ const getURLSetNs: (opts: NSArgs, xslURL?: string) => string = (
   }
 
   if (image) {
-    ns += ' xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"';
+    ns += ' xmlns:image="http://www.google.com/schemas/image/1.1"';
   }
 
   if (video) {
-    ns += ' xmlns:video="http://www.google.com/schemas/sitemap-video/1.1"';
+    ns += ' xmlns:video="http://www.google.com/schemas/video/1.1"';
   }
 
   if (custom) {
@@ -72,6 +73,7 @@ const defaultXMLNS: NSArgs = {
   xhtml: true,
   image: true,
   video: true,
+  address: true,
 };
 const defaultStreamOpts: SitemapStreamOptions = {
   xmlns: defaultXMLNS,

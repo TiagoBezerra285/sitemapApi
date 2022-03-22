@@ -135,6 +135,34 @@ export interface Img {
   license?: string;
 }
 
+export interface Address {
+  /**
+   * The URL of the image
+   * @example 'https://example.com/image.jpg'
+   */
+  address: string;
+  /**
+   * The caption of the image
+   * @example 'Thanksgiving dinner'
+   */
+  city?: string;
+  /**
+   * The title of the image
+   * @example 'Star Wars EP IV'
+   */
+  region?: string;
+  /**
+   * The geographic location of the image.
+   * @example 'Limerick, Ireland'
+   */
+  postal_code?: string;
+  /**
+   * A URL to the license of the image.
+   * @example 'https://example.com/license.txt'
+   */
+  country?: string;
+}
+
 interface VideoItemBase {
   /**
    * A URL pointing to the video thumbnail image file
@@ -356,6 +384,10 @@ interface SitemapItemBase {
   vehicleFuelTypeDescription?: string,
   storeZipCode?: string,
   versionDescription?: string,
+  image_link?: string;
+  availability?: string;
+  id?: string;
+  brand?: string;
 }
 
 /**
@@ -363,6 +395,7 @@ interface SitemapItemBase {
  */
 export interface SitemapItem extends SitemapItemBase {
   img: Img[];
+  address: Address[];
   video: VideoItem[];
   links: LinkItem[];
 }
@@ -373,6 +406,7 @@ export interface SitemapItem extends SitemapItemBase {
 export interface SitemapItemLoose extends SitemapItemBase {
   video?: VideoItemLoose | VideoItemLoose[];
   img?: string | Img | (string | Img)[];
+  address?: string | Address | (string | Address)[];
   links?: LinkItem[];
   lastmodfile?: string | Buffer | URL;
   lastmodISO?: string;
@@ -428,6 +462,16 @@ export enum TagNames {
   vehicleFuelTypeDescription = 'vehicleFuelTypeDescription',
   storeZipCode = 'storeZipCode',
   versionDescription = 'versionDescription',
+  image_link = 'image_link',
+  availability = 'availability',
+  id = 'id',
+  brand = 'brand',
+  'address:loc' = 'address:loc',
+  'address:address' = 'address:address',
+  'address:city' = 'address:city',
+  'address:region' = 'address:region',
+  'address:postal_code' = 'address:postal_code',
+  'address:country' = 'address:country',
   'video:thumbnail_loc' = 'video:thumbnail_loc',
   'video:video' = 'video:video',
   'video:title' = 'video:title',

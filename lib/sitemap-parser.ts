@@ -11,6 +11,7 @@ import {
   isValidYesNo,
   VideoItem,
   Img,
+  Address,
   LinkItem,
   NewsItem,
   ErrorLevel,
@@ -28,6 +29,7 @@ function isValidTagName(tagName: string): tagName is TagNames {
 function tagTemplate(): SitemapItem {
   return {
     img: [],
+    address: [],
     video: [],
     links: [],
     url: '',
@@ -45,6 +47,9 @@ function videoTemplate(): VideoItem {
 
 const imageTemplate: Img = {
   url: '',
+};
+const addressTemplate: Address = {
+  address: '',
 };
 
 const linkTemplate: LinkItem = {
@@ -105,6 +110,7 @@ export class XMLToSitemapItemStream extends Transform {
     let currentTag: string;
     let currentVideo: VideoItem = videoTemplate();
     let currentImage: Img = { ...imageTemplate };
+    let currentAddress: Address = { ...addressTemplate };
     let currentLink: LinkItem = { ...linkTemplate };
     let dontpushCurrentLink = false;
     this.saxStream.on('opentagstart', (tag): void => {
@@ -237,6 +243,21 @@ export class XMLToSitemapItemStream extends Transform {
         case TagNames['image:license']:
           currentImage.license = text;
           break;
+        case TagNames['address:address']:
+          currentImage.url = text;
+          break;
+        case TagNames['address:city']:
+          currentImage.url = text;
+          break; 
+        case TagNames['address:region']:
+          currentImage.url = text;
+          break;
+        case TagNames['address:postal_code']:
+          currentImage.url = text;
+          break;
+        case TagNames['address:country']:
+          currentImage.url = text;
+          break;         
         case TagNames['news:access']:
           if (!currentItem.news) {
             currentItem.news = newsTemplate();
@@ -460,6 +481,10 @@ export class XMLToSitemapItemStream extends Transform {
         case TagNames['image:image']:
           currentItem.img.push(currentImage);
           currentImage = { ...imageTemplate };
+          break;
+        case TagNames['address:address']:
+          currentItem.address.push(currentAddress);
+          currentAddress = { ...addressTemplate };
           break;
         case TagNames['xhtml:link']:
           if (!dontpushCurrentLink) {
